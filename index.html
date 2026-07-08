@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>線上下單網站</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="brand">
+        <div class="logo-frame">
+          <img id="siteLogo" alt="網站 Logo 預覽">
+          <span id="logoPlaceholder">LOGO</span>
+        </div>
+        <div>
+          <p class="eyebrow">線上下單系統</p>
+          <h1 id="shopName">我的商店</h1>
+        </div>
+      </div>
+      <label class="upload-button">
+        <input id="logoInput" type="file" accept="image/*">
+        上傳 Logo
+      </label>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">快速接單・價格清楚・圖片可上傳</p>
+          <h2>讓客人選商品、填資料、上傳參考圖，一次完成下單。</h2>
+          <p>適合客製商品、印刷、設計服務、代購、預約訂購與需要圖片附件的訂單流程。</p>
+        </div>
+        <form class="shop-settings" id="shopSettings">
+          <label>
+            商店名稱
+            <input id="shopNameInput" type="text" value="我的商店" maxlength="24">
+          </label>
+          <label>
+            聯絡電話
+            <input id="phoneInput" type="tel" placeholder="例如：0912-345-678">
+          </label>
+          <label>
+            LINE ID
+            <input id="lineInput" type="text" placeholder="例如：myshop888">
+          </label>
+          <label>
+            接收訂單 Email
+            <input id="orderEmailInput" type="email" placeholder="例如：orders@example.com">
+          </label>
+        </form>
+      </section>
+
+      <section class="section-heading">
+        <div>
+          <p class="eyebrow">商品價格</p>
+          <h2>選擇要下單的項目</h2>
+        </div>
+        <button id="resetButton" type="button">清除訂單</button>
+      </section>
+
+      <section class="product-grid" id="productGrid" aria-label="商品列表"></section>
+
+      <section class="order-layout">
+        <form class="order-form" id="orderForm">
+          <div class="form-title">
+            <p class="eyebrow">訂單資料</p>
+            <h2>填寫下單資訊</h2>
+          </div>
+
+          <div class="form-grid">
+            <label>
+              姓名
+              <input name="customerName" type="text" placeholder="請輸入姓名" required>
+            </label>
+            <label>
+              電話
+              <input name="customerPhone" type="tel" placeholder="請輸入電話" required>
+            </label>
+            <label>
+              Email
+              <input name="customerEmail" type="email" placeholder="name@example.com">
+            </label>
+            <label>
+              取貨方式
+              <select name="delivery">
+                <option>宅配</option>
+                <option>店取</option>
+                <option>面交</option>
+              </select>
+            </label>
+          </div>
+
+          <label>
+            收件地址或備註
+            <textarea name="note" rows="4" placeholder="尺寸、顏色、交期、地址或其他需求"></textarea>
+          </label>
+
+          <div class="upload-panel">
+            <div>
+              <p class="eyebrow">圖片附件</p>
+              <h3>上傳參考圖片</h3>
+              <p>可上傳商品參考圖、設計圖、付款截圖或客製需求圖片。</p>
+            </div>
+            <label class="upload-drop">
+              <input id="orderImages" type="file" accept="image/*" multiple>
+              選擇圖片
+            </label>
+          </div>
+          <div class="image-preview" id="imagePreview"></div>
+
+          <button class="submit-button" type="submit">送出訂單並開啟 Email</button>
+        </form>
+
+        <aside class="summary">
+          <p class="eyebrow">訂單摘要</p>
+          <h2>目前選購</h2>
+          <div id="cartItems" class="cart-items"></div>
+          <div class="total-row">
+            <span>合計</span>
+            <strong id="cartTotal">NT$0</strong>
+          </div>
+          <div class="contact-box">
+            <span>商店聯絡資訊</span>
+            <p id="contactInfo">尚未填寫</p>
+          </div>
+          <div class="contact-box">
+            <span>訂單寄送方式</span>
+            <p id="emailInfo">請先填寫接收訂單 Email</p>
+          </div>
+        </aside>
+      </section>
+
+      <section class="orders">
+        <div class="section-heading compact">
+          <div>
+            <p class="eyebrow">已送出訂單</p>
+            <h2>瀏覽器本機紀錄</h2>
+          </div>
+          <button id="clearHistory" type="button">清除紀錄</button>
+        </div>
+        <div id="orderHistory" class="history-list"></div>
+      </section>
+    </main>
+
+    <template id="productTemplate">
+      <article class="product-card">
+        <img class="product-image" alt="">
+        <div class="product-body">
+          <span class="product-tag"></span>
+          <h3></h3>
+          <p></p>
+          <div class="product-footer">
+            <strong></strong>
+            <div class="quantity-control">
+              <button class="minus" type="button" aria-label="減少數量">-</button>
+              <span>0</span>
+              <button class="plus" type="button" aria-label="增加數量">+</button>
+            </div>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
