@@ -1,0 +1,47 @@
+{
+  "brand": {
+    "name": "Ken's Farm",
+    "logo": "assets/images/logo.png"
+  },
+  "navigation": {
+    "productsLabel": "Fruit Box",
+    "reserveLabel": "Reserve"
+  },
+  "hero": {
+    "kicker": "Pingtung Farm to Home",
+    "banner": "assets/images/hero.png",
+    "title": "Sun-ripened fruit, straight from our farm.",
+    "subtitle": "屏東陽光熟成的酪梨與芒果，產地直送到你家。",
+    "chips": ["Avocado", "Mango", "Seasonal Box", "Farm to Home"],
+    "primaryButton": "Order the Box",
+    "secondaryButton": "查看本週水果"
+  },
+  "about": {
+    "kicker": "屏東小農產地直送",
+    "title": "Tree-ripened produce with a cleaner, softer kind of luxury.",
+    "text": "每週依熟度少量開放預訂，確認訂單後再安排採收、包裝與配送。"
+  },
+  "sections": {
+    "productsKicker": "Fresh this week",
+    "productsTitle": "This Week’s Fruit Box",
+    "checkoutKicker": "Checkout",
+    "checkoutTitle": "Reserve Your Box",
+    "receiptKicker": "Receipt",
+    "receiptTitle": "Your Box",
+    "emptyCart": "Choose your fruit box.",
+    "clearButton": "Clear selection"
+  },
+  "order": {
+    "submitButton": "Send My Order",
+    "successMessage": "訂單已送出，我們會盡快與你確認熟度、出貨日與付款方式。",
+    "selectProductMessage": "請先選擇至少一箱水果。",
+    "formspreeEndpoint": "https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID",
+    "fallbackEmail": "kenfarmpingtung@example.com"
+  },
+  "contact": {
+    "email": "kenfarmpingtung@example.com",
+    "lineUrl": "",
+    "instagramUrl": "https://www.instagram.com/kenfarmpingtung?igsh=MXJubTk4NWR3MnA3Yg%3D%3D&utm_source=qr"
+  },
+  "footer": "Ken’s Farm · 屏東小農產地直送 · Avocado / Mango / Seasonal Box"
+}

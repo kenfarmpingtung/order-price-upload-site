@@ -1,5 +1,53 @@
+const CONTENT_URL = "data/content.json";
 const PRODUCTS_URL = "data/products.json";
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID";
+
+const fallbackContent = {
+  brand: {
+    name: "Ken's Farm",
+    logo: "assets/images/logo.png"
+  },
+  navigation: {
+    productsLabel: "Fruit Box",
+    reserveLabel: "Reserve"
+  },
+  hero: {
+    kicker: "Pingtung Farm to Home",
+    banner: "assets/images/hero.png",
+    title: "Sun-ripened fruit, straight from our farm.",
+    subtitle: "屏東陽光熟成的酪梨與芒果，產地直送到你家。",
+    chips: ["Avocado", "Mango", "Seasonal Box", "Farm to Home"],
+    primaryButton: "Order the Box",
+    secondaryButton: "查看本週水果"
+  },
+  about: {
+    kicker: "屏東小農產地直送",
+    title: "Tree-ripened produce with a cleaner, softer kind of luxury.",
+    text: "每週依熟度少量開放預訂，確認訂單後再安排採收、包裝與配送。"
+  },
+  sections: {
+    productsKicker: "Fresh this week",
+    productsTitle: "This Week’s Fruit Box",
+    checkoutKicker: "Checkout",
+    checkoutTitle: "Reserve Your Box",
+    receiptKicker: "Receipt",
+    receiptTitle: "Your Box",
+    emptyCart: "Choose your fruit box.",
+    clearButton: "Clear selection"
+  },
+  order: {
+    submitButton: "Send My Order",
+    successMessage: "訂單已送出，我們會盡快與你確認熟度、出貨日與付款方式。",
+    selectProductMessage: "請先選擇至少一箱水果。",
+    formspreeEndpoint: "https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID",
+    fallbackEmail: "kenfarmpingtung@example.com"
+  },
+  contact: {
+    email: "kenfarmpingtung@example.com",
+    lineUrl: "",
+    instagramUrl: "https://www.instagram.com/kenfarmpingtung?igsh=MXJubTk4NWR3MnA3Yg%3D%3D&utm_source=qr"
+  },
+  footer: "Ken’s Farm · 屏東小農產地直送 · Avocado / Mango / Seasonal Box"
+};
 
 const fallbackProducts = [
   {
@@ -7,7 +55,7 @@ const fallbackProducts = [
     name: "Golden Mango Box",
     price: 650,
     unit: "5斤裝",
-    image: "images/mango-01.png",
+    image: "assets/images/mango-01.png",
     description: "屏東陽光熟成，香氣濃郁、果肉細緻，適合冰鎮後享用。",
     available: true
   },
@@ -16,7 +64,7 @@ const fallbackProducts = [
     name: "Creamy Avocado Box",
     price: 550,
     unit: "6顆裝",
-    image: "images/avocado-01.png",
+    image: "assets/images/avocado-01.png",
     description: "自然熟成的酪梨，適合酪梨牛奶、沙拉與早午餐。",
     available: true
   },
@@ -25,27 +73,18 @@ const fallbackProducts = [
     name: "Summer Farm Set",
     price: 980,
     unit: "芒果＋酪梨綜合箱",
-    image: "images/farm-set.png",
+    image: "assets/images/farm-set.png",
     description: "把夏天裝進一箱，芒果與酪梨一次帶回家。",
     available: true
   }
 ];
 
+let content = fallbackContent;
 let products = [];
+
 const state = {
   cart: {}
 };
-
-const productGrid = document.querySelector("#productGrid");
-const productTemplate = document.querySelector("#productTemplate");
-const cartItems = document.querySelector("#cartItems");
-const cartTotal = document.querySelector("#cartTotal");
-const orderForm = document.querySelector("#orderForm");
-const resetButton = document.querySelector("#resetButton");
-const formMessage = document.querySelector("#formMessage");
-const orderItemsInput = document.querySelector("#orderItemsInput");
-const orderTotalInput = document.querySelector("#orderTotalInput");
-const orderSummaryInput = document.querySelector("#orderSummaryInput");
 
 const money = new Intl.NumberFormat("zh-TW", {
   style: "currency",
@@ -53,26 +92,116 @@ const money = new Intl.NumberFormat("zh-TW", {
   maximumFractionDigits: 0
 });
 
-async function loadProducts() {
-  try {
-    const response = await fetch(PRODUCTS_URL, { cache: "no-store" });
-    if (!response.ok) throw new Error("Unable to load products.json");
-    const data = await response.json();
-    products = data.filter((product) => product.available !== false);
-  } catch {
-    products = fallbackProducts;
-  }
+const els = {
+  brandLogo: document.querySelector("#brandLogo"),
+  footerLogo: document.querySelector("#footerLogo"),
+  brandName: document.querySelector("#brandName"),
+  navProducts: document.querySelector("#navProducts"),
+  navReserve: document.querySelector("#navReserve"),
+  instagramLink: document.querySelector("#instagramLink"),
+  lineLink: document.querySelector("#lineLink"),
+  heroMedia: document.querySelector("#heroMedia"),
+  heroKicker: document.querySelector("#heroKicker"),
+  heroTitle: document.querySelector("#heroTitle"),
+  heroSubtitle: document.querySelector("#heroSubtitle"),
+  heroChips: document.querySelector("#heroChips"),
+  primaryCta: document.querySelector("#primaryCta"),
+  secondaryCta: document.querySelector("#secondaryCta"),
+  aboutKicker: document.querySelector("#aboutKicker"),
+  aboutTitle: document.querySelector("#aboutTitle"),
+  aboutText: document.querySelector("#aboutText"),
+  productsKicker: document.querySelector("#productsKicker"),
+  productsTitle: document.querySelector("#productsTitle"),
+  checkoutKicker: document.querySelector("#checkoutKicker"),
+  checkoutTitle: document.querySelector("#checkoutTitle"),
+  receiptKicker: document.querySelector("#receiptKicker"),
+  receiptTitle: document.querySelector("#receiptTitle"),
+  footerText: document.querySelector("#footerText"),
+  productGrid: document.querySelector("#productGrid"),
+  productTemplate: document.querySelector("#productTemplate"),
+  cartItems: document.querySelector("#cartItems"),
+  cartTotal: document.querySelector("#cartTotal"),
+  orderForm: document.querySelector("#orderForm"),
+  resetButton: document.querySelector("#resetButton"),
+  submitButton: document.querySelector("#submitButton"),
+  formMessage: document.querySelector("#formMessage"),
+  orderItemsInput: document.querySelector("#orderItemsInput"),
+  orderTotalInput: document.querySelector("#orderTotalInput"),
+  orderSummaryInput: document.querySelector("#orderSummaryInput"),
+  recipientEmailInput: document.querySelector("#recipientEmailInput"),
+  formspreeEndpointInput: document.querySelector("#formspreeEndpointInput")
+};
 
-  state.cart = Object.fromEntries(products.map((product) => [product.id, 0]));
-  renderProducts();
-  renderCart();
+async function fetchJson(url, fallback) {
+  try {
+    const response = await fetch(url, { cache: "no-store" });
+    if (!response.ok) throw new Error(`Unable to load ${url}`);
+    return await response.json();
+  } catch {
+    return fallback;
+  }
+}
+
+function setText(element, text) {
+  if (element) element.textContent = text || "";
+}
+
+function renderContent() {
+  document.title = `${content.brand.name} | 屏東小農產地直送`;
+  els.brandLogo.src = content.brand.logo;
+  els.footerLogo.src = content.brand.logo;
+  els.brandName.textContent = content.brand.name;
+  els.heroMedia.style.setProperty("--hero-image", `url("${content.hero.banner}")`);
+
+  setText(els.navProducts, content.navigation.productsLabel);
+  setText(els.navReserve, content.navigation.reserveLabel);
+  setText(els.heroKicker, content.hero.kicker);
+  setText(els.heroTitle, content.hero.title);
+  setText(els.heroSubtitle, content.hero.subtitle);
+  setText(els.primaryCta, content.hero.primaryButton);
+  setText(els.secondaryCta, content.hero.secondaryButton);
+  setText(els.aboutKicker, content.about.kicker);
+  setText(els.aboutTitle, content.about.title);
+  setText(els.aboutText, content.about.text);
+  setText(els.productsKicker, content.sections.productsKicker);
+  setText(els.productsTitle, content.sections.productsTitle);
+  setText(els.checkoutKicker, content.sections.checkoutKicker);
+  setText(els.checkoutTitle, content.sections.checkoutTitle);
+  setText(els.receiptKicker, content.sections.receiptKicker);
+  setText(els.receiptTitle, content.sections.receiptTitle);
+  setText(els.resetButton, content.sections.clearButton);
+  setText(els.submitButton, content.order.submitButton);
+  setText(els.footerText, content.footer);
+
+  els.heroChips.innerHTML = "";
+  content.hero.chips.forEach((chip) => {
+    const span = document.createElement("span");
+    span.textContent = chip;
+    els.heroChips.append(span);
+  });
+
+  configureExternalLink(els.instagramLink, content.contact.instagramUrl);
+  configureExternalLink(els.lineLink, content.contact.lineUrl);
+
+  els.recipientEmailInput.value = content.contact.email || content.order.fallbackEmail || "";
+  els.formspreeEndpointInput.value = content.order.formspreeEndpoint || "";
+}
+
+function configureExternalLink(link, url) {
+  if (!link) return;
+  if (url) {
+    link.href = url;
+    link.hidden = false;
+  } else {
+    link.hidden = true;
+  }
 }
 
 function renderProducts() {
-  productGrid.innerHTML = "";
+  els.productGrid.innerHTML = "";
 
   products.forEach((product) => {
-    const item = productTemplate.content.firstElementChild.cloneNode(true);
+    const item = els.productTemplate.content.firstElementChild.cloneNode(true);
     const image = item.querySelector(".product-image");
     const unit = item.querySelector(".product-unit");
     const title = item.querySelector("h3");
@@ -86,27 +215,27 @@ function renderProducts() {
     title.textContent = product.name;
     description.textContent = product.description;
     price.textContent = money.format(product.price);
-    quantity.textContent = state.cart[product.id];
+    quantity.textContent = state.cart[product.id] || 0;
 
     item.querySelector(".minus").addEventListener("click", () => {
-      state.cart[product.id] = Math.max(0, state.cart[product.id] - 1);
+      state.cart[product.id] = Math.max(0, (state.cart[product.id] || 0) - 1);
       renderProducts();
       renderCart();
     });
 
     item.querySelector(".plus").addEventListener("click", () => {
-      state.cart[product.id] += 1;
+      state.cart[product.id] = (state.cart[product.id] || 0) + 1;
       renderProducts();
       renderCart();
     });
 
-    productGrid.append(item);
+    els.productGrid.append(item);
   });
 }
 
 function getCartLines() {
   return products
-    .filter((product) => state.cart[product.id] > 0)
+    .filter((product) => (state.cart[product.id] || 0) > 0)
     .map((product) => ({
       ...product,
       quantity: state.cart[product.id],
@@ -127,7 +256,7 @@ function buildOrderSummary(lines) {
 function syncHiddenInputs() {
   const lines = getCartLines();
   const total = getTotal(lines);
-  orderItemsInput.value = JSON.stringify(
+  els.orderItemsInput.value = JSON.stringify(
     lines.map(({ id, name, unit, price, quantity, subtotal }) => ({
       id,
       name,
@@ -137,16 +266,16 @@ function syncHiddenInputs() {
       subtotal
     }))
   );
-  orderTotalInput.value = money.format(total);
-  orderSummaryInput.value = `${buildOrderSummary(lines)}\nTotal: ${money.format(total)}`;
+  els.orderTotalInput.value = money.format(total);
+  els.orderSummaryInput.value = `${buildOrderSummary(lines)}\nTotal: ${money.format(total)}`;
 }
 
 function renderCart() {
   const lines = getCartLines();
-  cartItems.innerHTML = "";
+  els.cartItems.innerHTML = "";
 
   if (lines.length === 0) {
-    cartItems.innerHTML = '<p class="empty">Choose your fruit box.</p>';
+    els.cartItems.innerHTML = `<p class="empty">${content.sections.emptyCart}</p>`;
   } else {
     lines.forEach((line) => {
       const row = document.createElement("div");
@@ -156,18 +285,18 @@ function renderCart() {
         <strong>${money.format(line.subtotal)}</strong>
         <span>${line.unit} · ${money.format(line.price)} x ${line.quantity}</span>
       `;
-      cartItems.append(row);
+      els.cartItems.append(row);
     });
   }
 
-  cartTotal.textContent = money.format(getTotal(lines));
+  els.cartTotal.textContent = money.format(getTotal(lines));
   syncHiddenInputs();
 }
 
 function showMessage(message, isError = false) {
-  formMessage.textContent = message;
-  formMessage.classList.toggle("error", isError);
-  formMessage.classList.add("show");
+  els.formMessage.textContent = message;
+  els.formMessage.classList.toggle("error", isError);
+  els.formMessage.classList.add("show");
 }
 
 function resetCart() {
@@ -178,48 +307,88 @@ function resetCart() {
   renderCart();
 }
 
-resetButton.addEventListener("click", resetCart);
+function buildMailto(formData) {
+  const lines = getCartLines();
+  const subject = `New order from ${formData.get("name")}`;
+  const body = [
+    content.brand.name,
+    "",
+    `Name: ${formData.get("name")}`,
+    `Phone: ${formData.get("phone")}`,
+    `Email: ${formData.get("email")}`,
+    `Delivery: ${formData.get("delivery")}`,
+    "",
+    "Order",
+    buildOrderSummary(lines),
+    `Total: ${money.format(getTotal(lines))}`,
+    "",
+    "Notes",
+    formData.get("message") || "None"
+  ].join("\n");
+  const email = content.contact.email || content.order.fallbackEmail;
+  return `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
 
-orderForm.addEventListener("submit", async (event) => {
+async function submitToFormspree(formData) {
+  const endpoint = content.order.formspreeEndpoint || "";
+  if (!endpoint || endpoint.includes("REPLACE_WITH_YOUR_FORM_ID")) {
+    window.location.href = buildMailto(formData);
+    showMessage("已開啟 Email 視窗，請確認內容後寄出。");
+    return;
+  }
+
+  const response = await fetch(endpoint, {
+    method: "POST",
+    body: formData,
+    headers: {
+      Accept: "application/json"
+    }
+  });
+
+  if (!response.ok) throw new Error("Formspree submit failed");
+}
+
+els.resetButton.addEventListener("click", resetCart);
+
+els.orderForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const lines = getCartLines();
 
   if (lines.length === 0) {
-    showMessage("請先選擇至少一箱水果。", true);
+    showMessage(content.order.selectProductMessage, true);
     return;
   }
 
   syncHiddenInputs();
 
-  if (FORMSPREE_ENDPOINT.includes("REPLACE_WITH_YOUR_FORM_ID")) {
-    showMessage("請先在 app.js 設定你的 Formspree endpoint，訂單才會寄到 Email。", true);
-    return;
-  }
-
-  const submitButton = orderForm.querySelector(".submit");
-  submitButton.disabled = true;
-  submitButton.textContent = "Sending...";
+  const formData = new FormData(els.orderForm);
+  els.submitButton.disabled = true;
+  els.submitButton.textContent = "Sending...";
 
   try {
-    const response = await fetch(FORMSPREE_ENDPOINT, {
-      method: "POST",
-      body: new FormData(orderForm),
-      headers: {
-        Accept: "application/json"
-      }
-    });
-
-    if (!response.ok) throw new Error("Formspree submit failed");
-
-    orderForm.reset();
+    await submitToFormspree(formData);
+    els.orderForm.reset();
     resetCart();
-    showMessage("訂單已送出，我們會盡快與你確認熟度、出貨日與付款方式。");
+    showMessage(content.order.successMessage);
   } catch {
     showMessage("訂單送出失敗，請稍後再試，或直接聯絡 Ken’s Farm。", true);
   } finally {
-    submitButton.disabled = false;
-    submitButton.textContent = "Send My Order";
+    els.submitButton.disabled = false;
+    els.submitButton.textContent = content.order.submitButton;
   }
 });
 
-loadProducts();
+async function init() {
+  const [loadedContent, loadedProducts] = await Promise.all([
+    fetchJson(CONTENT_URL, fallbackContent),
+    fetchJson(PRODUCTS_URL, fallbackProducts)
+  ]);
+  content = loadedContent;
+  products = loadedProducts.filter((product) => product.available !== false);
+  state.cart = Object.fromEntries(products.map((product) => [product.id, 0]));
+  renderContent();
+  renderProducts();
+  renderCart();
+}
+
+init();

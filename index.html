@@ -13,49 +13,47 @@
   <body>
     <header class="site-header">
       <a class="brand" href="#top" aria-label="Ken's Farm home">
-        <img src="images/logo.png" alt="Ken's Farm logo">
-        <span>Ken's Farm</span>
+        <img id="brandLogo" src="assets/images/logo.png" alt="Ken's Farm logo">
+        <span id="brandName">Ken's Farm</span>
       </a>
       <nav aria-label="主要導覽">
-        <a href="#fruit-box">Fruit Box</a>
-        <a href="#reserve">Reserve</a>
-        <a class="social-link" href="https://www.instagram.com/kenfarmpingtung?igsh=MXJubTk4NWR3MnA3Yg%3D%3D&utm_source=qr" target="_blank" rel="noopener" aria-label="Ken's Farm Instagram">
-          <img src="images/instagram.svg" alt="">
+        <a id="navProducts" href="#fruit-box">Fruit Box</a>
+        <a id="navReserve" href="#reserve">Reserve</a>
+        <a id="lineLink" class="social-link" href="#" target="_blank" rel="noopener" aria-label="Ken's Farm LINE" hidden>
+          <span>LINE</span>
+        </a>
+        <a id="instagramLink" class="social-link" href="https://www.instagram.com/kenfarmpingtung?igsh=MXJubTk4NWR3MnA3Yg%3D%3D&utm_source=qr" target="_blank" rel="noopener" aria-label="Ken's Farm Instagram">
+          <img src="assets/images/instagram.svg" alt="">
         </a>
       </nav>
     </header>
 
     <main id="top">
       <section class="hero">
-        <div class="hero-media" aria-hidden="true"></div>
+        <div class="hero-media" id="heroMedia" aria-hidden="true"></div>
         <div class="hero-content">
-          <p class="kicker">Pingtung Farm to Home</p>
-          <h1>Sun-ripened fruit, straight from our farm.</h1>
-          <p class="hero-subtitle">屏東陽光熟成的酪梨與芒果，產地直送到你家。</p>
-          <div class="chips" aria-label="水果分類">
-            <span>Avocado</span>
-            <span>Mango</span>
-            <span>Seasonal Box</span>
-            <span>Farm to Home</span>
-          </div>
+          <p class="kicker" id="heroKicker">Pingtung Farm to Home</p>
+          <h1 id="heroTitle">Sun-ripened fruit, straight from our farm.</h1>
+          <p class="hero-subtitle" id="heroSubtitle">屏東陽光熟成的酪梨與芒果，產地直送到你家。</p>
+          <div class="chips" id="heroChips" aria-label="水果分類"></div>
           <div class="hero-actions">
-            <a class="button primary" href="#reserve">Order the Box</a>
-            <a class="button secondary" href="#fruit-box">查看本週水果</a>
+            <a class="button primary" id="primaryCta" href="#reserve">Order the Box</a>
+            <a class="button secondary" id="secondaryCta" href="#fruit-box">查看本週水果</a>
           </div>
         </div>
       </section>
 
       <section class="intro-strip" aria-label="品牌特色">
         <div>
-          <span>屏東小農產地直送</span>
-          <strong>Tree-ripened produce with a cleaner, softer kind of luxury.</strong>
+          <span id="aboutKicker">屏東小農產地直送</span>
+          <strong id="aboutTitle">Tree-ripened produce with a cleaner, softer kind of luxury.</strong>
         </div>
-        <p>每週依熟度少量開放預訂，確認訂單後再安排採收、包裝與配送。</p>
+        <p id="aboutText">每週依熟度少量開放預訂，確認訂單後再安排採收、包裝與配送。</p>
       </section>
 
       <section class="section-heading" id="fruit-box">
-        <p class="kicker">Fresh this week</p>
-        <h2>This Week’s Fruit Box</h2>
+        <p class="kicker" id="productsKicker">Fresh this week</p>
+        <h2 id="productsTitle">This Week’s Fruit Box</h2>
       </section>
 
       <section class="product-grid" id="productGrid" aria-label="本週商品"></section>
@@ -63,13 +61,15 @@
       <section class="reserve-layout" id="reserve">
         <form class="checkout" id="orderForm" method="POST">
           <div class="section-heading compact">
-            <p class="kicker">Checkout</p>
-            <h2>Reserve Your Box</h2>
+            <p class="kicker" id="checkoutKicker">Checkout</p>
+            <h2 id="checkoutTitle">Reserve Your Box</h2>
           </div>
 
           <input type="hidden" name="order_items" id="orderItemsInput">
           <input type="hidden" name="order_total" id="orderTotalInput">
           <input type="hidden" name="order_summary" id="orderSummaryInput">
+          <input type="hidden" name="recipient_email" id="recipientEmailInput">
+          <input type="hidden" name="formspree_endpoint" id="formspreeEndpointInput">
           <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off">
 
           <div class="form-grid">
@@ -101,13 +101,13 @@
           </label>
 
           <div class="form-message" id="formMessage" role="status" aria-live="polite"></div>
-          <button class="button submit" type="submit">Send My Order</button>
+          <button class="button submit" id="submitButton" type="submit">Send My Order</button>
         </form>
 
         <aside class="receipt-card" aria-label="訂單摘要">
           <div>
-            <p class="kicker">Receipt</p>
-            <h2>Your Box</h2>
+            <p class="kicker" id="receiptKicker">Receipt</p>
+            <h2 id="receiptTitle">Your Box</h2>
           </div>
           <div id="cartItems" class="cart-items"></div>
           <div class="total-row">
@@ -120,8 +120,8 @@
     </main>
 
     <footer class="site-footer">
-      <img src="images/logo.png" alt="" aria-hidden="true">
-      <p>Ken’s Farm · 屏東小農產地直送 · Avocado / Mango / Seasonal Box</p>
+      <img id="footerLogo" src="assets/images/logo.png" alt="" aria-hidden="true">
+      <p id="footerText">Ken’s Farm · 屏東小農產地直送 · Avocado / Mango / Seasonal Box</p>
     </footer>
 
     <template id="productTemplate">

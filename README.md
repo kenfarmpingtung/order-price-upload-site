@@ -12,11 +12,46 @@
 
 ## 更新商品
 
-修改 `data/products.json`，並替換 `images/` 內的商品圖片即可更新頁面。
+可以直接開啟 `admin.html` 使用視覺後台修改。
+
+後台可編輯：
+
+- Logo、首頁 Banner
+- 主標題、副標題、按鈕文字、關於我們
+- 商品名稱、價格、單位、描述、照片
+- Email、Formspree endpoint、LINE / IG 連結
+
+後台修改後請下載：
+
+- `content.json`
+- `products.json`
+
+再放回 `data/` 資料夾覆蓋。
+
+圖片統一放在 `assets/images/`。如果後台選了新圖片，請把同名圖片也上傳到 `assets/images/`。
+
+## 後台操作
+
+後台網址：
+
+`https://kenfarmpingtung.github.io/order-price-upload-site/admin.html`
+
+操作流程：
+
+1. 點文字直接修改。
+2. 點 Logo、Banner 或商品照片，上傳新圖片預覽。
+3. 點商品卡，可在右側修改名稱、價格、單位、描述、照片與是否顯示。
+4. 修改 Email、Formspree endpoint、LINE、IG 連結。
+5. 按 `Download content.json` 和 `Download products.json`。
+6. 到 GitHub repo 的 `data/` 資料夾，把下載的 JSON 上傳覆蓋。
+7. 如果有換圖片，到 `assets/images/` 上傳同名圖片。
+8. GitHub Pages 會自動更新，通常等待 1-2 分鐘。
+
+注意：GitHub Pages 是靜態網站，後台不能直接寫入 GitHub。下載 JSON 後仍需要手動上傳。
 
 ## Formspree
 
-在 `app.js` 將 `FORMSPREE_ENDPOINT` 改成你的 Formspree endpoint 後，訂單會送到 Formspree 設定的 Email。
+在 `admin.html` 的 Site Settings 填入你的 Formspree endpoint，下載 `content.json` 後覆蓋到 `data/content.json`。如果沒有設定 Formspree endpoint，前台會改用 Email 視窗寄出訂單內容。
 
 ## 部署
 

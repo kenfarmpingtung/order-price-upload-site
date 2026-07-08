@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ken's Farm Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./admin.css">
+  </head>
+  <body class="admin-body">
+    <header class="admin-toolbar">
+      <div>
+        <p class="kicker">Visual editor</p>
+        <h1>Ken's Farm Admin</h1>
+      </div>
+      <div class="toolbar-actions">
+        <a class="button secondary" href="./index.html">View Site</a>
+        <button class="button secondary" id="resetDraft" type="button">Reset Draft</button>
+        <button class="button primary" id="downloadContent" type="button">Download content.json</button>
+        <button class="button primary" id="downloadProducts" type="button">Download products.json</button>
+      </div>
+    </header>
+
+    <main class="admin-shell">
+      <section class="editor-canvas" aria-label="視覺編輯畫布">
+        <div class="admin-help">
+          <strong>點文字直接改，點圖片上傳預覽。</strong>
+          <span>修改會先存在這個瀏覽器，下載 JSON 後再上傳 GitHub。</span>
+        </div>
+
+        <section class="admin-hero">
+          <button class="image-edit hero-edit" data-image-target="hero.banner" type="button">
+            <img id="adminHeroImage" alt="首頁 Banner">
+            <span>Change Banner</span>
+          </button>
+          <div class="admin-brand-row">
+            <button class="image-edit logo-edit" data-image-target="brand.logo" type="button">
+              <img id="adminLogoImage" alt="Logo">
+              <span>Logo</span>
+            </button>
+            <strong data-edit="brand.name" contenteditable="true"></strong>
+          </div>
+          <p class="kicker" data-edit="hero.kicker" contenteditable="true"></p>
+          <h2 data-edit="hero.title" contenteditable="true"></h2>
+          <p class="admin-subtitle" data-edit="hero.subtitle" contenteditable="true"></p>
+          <div class="admin-chip-row" id="adminChips"></div>
+          <div class="admin-button-row">
+            <span class="admin-pill" data-edit="hero.primaryButton" contenteditable="true"></span>
+            <span class="admin-pill pale" data-edit="hero.secondaryButton" contenteditable="true"></span>
+          </div>
+        </section>
+
+        <section class="admin-about">
+          <p class="kicker" data-edit="about.kicker" contenteditable="true"></p>
+          <h2 data-edit="about.title" contenteditable="true"></h2>
+          <p data-edit="about.text" contenteditable="true"></p>
+        </section>
+
+        <section>
+          <div class="admin-section-title">
+            <p class="kicker" data-edit="sections.productsKicker" contenteditable="true"></p>
+            <h2 data-edit="sections.productsTitle" contenteditable="true"></h2>
+          </div>
+          <div class="admin-product-grid" id="adminProductGrid"></div>
+        </section>
+      </section>
+
+      <aside class="inspector">
+        <div class="inspector-card">
+          <p class="kicker">Site Settings</p>
+          <label>
+            Email 收件地址
+            <input id="emailInput" type="email" placeholder="orders@example.com">
+          </label>
+          <label>
+            Formspree endpoint
+            <input id="formspreeInput" type="url" placeholder="https://formspree.io/f/xxxxxxx">
+          </label>
+          <label>
+            LINE 連結
+            <input id="lineInput" type="url" placeholder="https://line.me/...">
+          </label>
+          <label>
+            IG 連結
+            <input id="igInput" type="url">
+          </label>
+          <label>
+            Footer
+            <textarea id="footerInput" rows="3"></textarea>
+          </label>
+        </div>
+
+        <div class="inspector-card">
+          <p class="kicker">Fruit Box</p>
+          <div id="productInspector" class="product-inspector-empty">點一張商品卡開始編輯。</div>
+          <button class="button secondary full" id="addProduct" type="button">Add Product</button>
+        </div>
+
+        <div class="inspector-card">
+          <p class="kicker">How to publish</p>
+          <ol class="admin-steps">
+            <li>下載新的 <code>content.json</code> 和 <code>products.json</code>。</li>
+            <li>把 JSON 放回 <code>data/</code> 資料夾覆蓋。</li>
+            <li>新圖片放到 <code>assets/images/</code>。</li>
+            <li>用 GitHub 網頁上傳或 commit 後 push。</li>
+          </ol>
+        </div>
+      </aside>
+    </main>
+
+    <input id="imagePicker" type="file" accept="image/*" hidden>
+
+    <template id="adminProductTemplate">
+      <article class="admin-product-card">
+        <button class="image-edit product-photo" type="button">
+          <img alt="">
+          <span>Change Photo</span>
+        </button>
+        <div class="admin-product-copy">
+          <span class="unit"></span>
+          <h3></h3>
+          <p></p>
+          <strong></strong>
+        </div>
+      </article>
+    </template>
+
+    <script src="./admin.js"></script>
+  </body>
+</html>
