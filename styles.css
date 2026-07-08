@@ -118,6 +118,18 @@ nav a:hover {
   color: var(--avocado-dark);
 }
 
+.social-link {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+}
+
+.social-link img {
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+
 .hero {
   position: relative;
   display: grid;
@@ -576,6 +588,11 @@ textarea:focus {
   nav a {
     padding: 8px 10px;
     font-size: 0.78rem;
+  }
+
+  .social-link {
+    width: 34px;
+    padding: 0;
   }
 
   .brand span {

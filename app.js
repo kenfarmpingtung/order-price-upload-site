@@ -146,7 +146,7 @@ function renderCart() {
   cartItems.innerHTML = "";
 
   if (lines.length === 0) {
-    cartItems.innerHTML = '<p class="empty">Choose your fruit drop.</p>';
+    cartItems.innerHTML = '<p class="empty">Choose your fruit box.</p>';
   } else {
     lines.forEach((line) => {
       const row = document.createElement("div");
