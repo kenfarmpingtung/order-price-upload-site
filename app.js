@@ -15,7 +15,7 @@ const fallbackContent = {
     banner: "assets/images/hero.png",
     title: "Sun-ripened fruit, straight from our farm.",
     subtitle: "屏東陽光熟成的酪梨與芒果，產地直送到你家。",
-    chips: ["Avocado", "Mango", "Seasonal Box", "Farm to Home"],
+    chips: ["Avocado", "Mango", "Farm to Home"],
     primaryButton: "Order the Box",
     secondaryButton: "查看本週水果"
   },
@@ -46,7 +46,7 @@ const fallbackContent = {
     lineUrl: "",
     instagramUrl: "https://www.instagram.com/kenfarmpingtung?igsh=MXJubTk4NWR3MnA3Yg%3D%3D&utm_source=qr"
   },
-  footer: "Ken’s Farm · 屏東小農產地直送 · Avocado / Mango / Seasonal Box"
+  footer: "Ken’s Farm · 屏東小農產地直送 · Avocado / Mango"
 };
 
 const fallbackProducts = [
@@ -66,15 +66,6 @@ const fallbackProducts = [
     unit: "6顆裝",
     image: "assets/images/avocado-01.png",
     description: "自然熟成的酪梨，適合酪梨牛奶、沙拉與早午餐。",
-    available: true
-  },
-  {
-    id: "summer-farm-set",
-    name: "Summer Farm Set",
-    price: 980,
-    unit: "芒果＋酪梨綜合箱",
-    image: "assets/images/farm-set.png",
-    description: "把夏天裝進一箱，芒果與酪梨一次帶回家。",
     available: true
   }
 ];
@@ -148,10 +139,10 @@ function setText(element, text) {
 
 function renderContent() {
   document.title = `${content.brand.name} | 屏東小農產地直送`;
-  els.brandLogo.src = content.brand.logo;
-  els.footerLogo.src = content.brand.logo;
-  els.brandName.textContent = content.brand.name;
-  els.heroMedia.style.setProperty("--hero-image", `url("${content.hero.banner}")`);
+  if (els.brandLogo) els.brandLogo.src = content.brand.logo;
+  if (els.footerLogo) els.footerLogo.src = content.brand.logo;
+  if (els.brandName) els.brandName.textContent = content.brand.name;
+  if (els.heroMedia) els.heroMedia.style.setProperty("--hero-image", `url("${content.hero.banner}")`);
 
   setText(els.navProducts, content.navigation.productsLabel);
   setText(els.navReserve, content.navigation.reserveLabel);
@@ -173,12 +164,14 @@ function renderContent() {
   setText(els.submitButton, content.order.submitButton);
   setText(els.footerText, content.footer);
 
-  els.heroChips.innerHTML = "";
-  content.hero.chips.forEach((chip) => {
-    const span = document.createElement("span");
-    span.textContent = chip;
-    els.heroChips.append(span);
-  });
+  if (els.heroChips) {
+    els.heroChips.innerHTML = "";
+    content.hero.chips.forEach((chip) => {
+      const span = document.createElement("span");
+      span.textContent = chip;
+      els.heroChips.append(span);
+    });
+  }
 
   configureExternalLink(els.instagramLink, content.contact.instagramUrl);
   configureExternalLink(els.lineLink, content.contact.lineUrl);

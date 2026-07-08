@@ -87,6 +87,7 @@ main {
   align-items: center;
   gap: 10px;
   font-weight: 800;
+  font-size: 1rem;
 }
 
 .brand img,
@@ -295,6 +296,10 @@ h1 {
   margin: 0 0 24px;
 }
 
+main > .section-heading:first-child {
+  padding-top: clamp(42px, 7vw, 78px);
+}
+
 .section-heading h2 {
   margin: 0;
   font-size: clamp(2.2rem, 5vw, 4.7rem);
@@ -307,7 +312,7 @@ h1 {
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 22px;
 }
 

@@ -12,7 +12,7 @@
     "banner": "assets/images/hero.png",
     "title": "Sun-ripened fruit, straight from our farm.",
     "subtitle": "屏東陽光熟成的酪梨與芒果，產地直送到你家。",
-    "chips": ["Avocado", "Mango", "Seasonal Box", "Farm to Home"],
+    "chips": ["Avocado", "Mango", "Farm to Home"],
     "primaryButton": "Order the Box",
     "secondaryButton": "查看本週水果"
   },
@@ -43,5 +43,5 @@
     "lineUrl": "",
     "instagramUrl": "https://www.instagram.com/kenfarmpingtung?igsh=MXJubTk4NWR3MnA3Yg%3D%3D&utm_source=qr"
   },
-  "footer": "Ken’s Farm · 屏東小農產地直送 · Avocado / Mango / Seasonal Box"
+  "footer": "Ken’s Farm · 屏東小農產地直送 · Avocado / Mango"
 }

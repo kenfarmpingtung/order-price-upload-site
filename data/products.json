@@ -16,14 +16,5 @@
     "image": "assets/images/avocado-01.png",
     "description": "自然熟成的酪梨，適合酪梨牛奶、沙拉與早午餐。",
     "available": true
-  },
-  {
-    "id": "summer-farm-set",
-    "name": "Summer Farm Set",
-    "price": 980,
-    "unit": "芒果＋酪梨綜合箱",
-    "image": "assets/images/farm-set.png",
-    "description": "把夏天裝進一箱，芒果與酪梨一次帶回家。",
-    "available": true
   }
 ]
