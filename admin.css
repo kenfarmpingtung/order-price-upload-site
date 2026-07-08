@@ -74,78 +74,6 @@
   color: var(--avocado-dark);
 }
 
-.admin-hero {
-  position: relative;
-  display: grid;
-  gap: 18px;
-  overflow: hidden;
-  min-height: 640px;
-  align-content: end;
-  border-radius: 28px;
-  padding: clamp(22px, 5vw, 58px);
-  background: var(--cream);
-}
-
-.hero-edit {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: inherit;
-}
-
-.hero-edit img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.hero-edit::after {
-  position: absolute;
-  inset: 0;
-  content: "";
-  background:
-    linear-gradient(90deg, rgba(255, 250, 240, 0.96), rgba(255, 250, 240, 0.64) 46%, rgba(255, 250, 240, 0.08)),
-    linear-gradient(180deg, rgba(255, 250, 240, 0), rgba(255, 250, 240, 0.3));
-}
-
-.hero-edit span {
-  position: absolute;
-  right: 18px;
-  top: 18px;
-  z-index: 2;
-}
-
-.admin-hero > *:not(.hero-edit) {
-  position: relative;
-  z-index: 2;
-}
-
-.admin-brand-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.logo-edit {
-  width: 58px;
-  height: 58px;
-}
-
-.logo-edit img {
-  width: 100%;
-  height: 100%;
-  border-radius: 999px;
-}
-
-.logo-edit span {
-  display: none;
-}
-
-.admin-brand-row strong {
-  font-size: 1.1rem;
-}
-
 [contenteditable="true"] {
   outline: 0;
   border-radius: 10px;
@@ -156,8 +84,6 @@
   background: rgba(255, 250, 240, 0.7);
 }
 
-.admin-hero h2,
-.admin-about h2,
 .admin-section-title h2 {
   max-width: 720px;
   margin: 0;
@@ -166,56 +92,9 @@
   line-height: 0.92;
 }
 
-.admin-subtitle {
-  max-width: 560px;
-  color: var(--muted);
-  font-size: 1.18rem;
-}
-
-.admin-chip-row,
-.admin-button-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.admin-chip-row span,
-.admin-pill {
-  border-radius: 999px;
-  padding: 10px 14px;
-  background: rgba(255, 250, 240, 0.74);
-  color: var(--avocado-dark);
-  font-weight: 850;
-}
-
-.admin-pill {
-  color: #fffaf0;
-  background: var(--avocado-dark);
-}
-
-.admin-pill.pale {
-  color: #7e4a25;
-  background: rgba(255, 250, 240, 0.78);
-}
-
-.admin-about {
-  display: grid;
-  gap: 10px;
-  padding: clamp(22px, 4vw, 34px);
-  border: 1px solid rgba(83, 110, 70, 0.12);
-  border-radius: 26px;
-  background: rgba(255, 250, 240, 0.6);
-}
-
-.admin-about p:last-child {
-  max-width: 720px;
-  color: var(--muted);
-  font-size: 1rem;
-}
-
 .admin-product-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
 }
 
@@ -382,13 +261,6 @@
     border-radius: 20px;
   }
 
-  .admin-hero {
-    min-height: 680px;
-    padding: 22px;
-  }
-
-  .admin-hero h2,
-  .admin-about h2,
   .admin-section-title h2 {
     font-size: 3.2rem;
   }

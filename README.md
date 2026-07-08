@@ -16,8 +16,7 @@
 
 後台可編輯：
 
-- Logo、首頁 Banner
-- 主標題、副標題、按鈕文字、關於我們
+- 本週水果區標題
 - 商品名稱、價格、單位、描述、照片
 - Email、Formspree endpoint、LINE / IG 連結
 
@@ -39,7 +38,7 @@
 操作流程：
 
 1. 點文字直接修改。
-2. 點 Logo、Banner 或商品照片，上傳新圖片預覽。
+2. 點商品照片，上傳新圖片預覽。
 3. 點商品卡，可在右側修改名稱、價格、單位、描述、照片與是否顯示。
 4. 修改 Email、Formspree endpoint、LINE、IG 連結。
 5. 按 `Download content.json` 和 `Download products.json`。

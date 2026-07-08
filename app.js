@@ -88,7 +88,6 @@ const els = {
   footerLogo: document.querySelector("#footerLogo"),
   brandName: document.querySelector("#brandName"),
   navProducts: document.querySelector("#navProducts"),
-  navReserve: document.querySelector("#navReserve"),
   instagramLink: document.querySelector("#instagramLink"),
   lineLink: document.querySelector("#lineLink"),
   heroMedia: document.querySelector("#heroMedia"),
@@ -145,7 +144,6 @@ function renderContent() {
   if (els.heroMedia) els.heroMedia.style.setProperty("--hero-image", `url("${content.hero.banner}")`);
 
   setText(els.navProducts, content.navigation.productsLabel);
-  setText(els.navReserve, content.navigation.reserveLabel);
   setText(els.heroKicker, content.hero.kicker);
   setText(els.heroTitle, content.hero.title);
   setText(els.heroSubtitle, content.hero.subtitle);

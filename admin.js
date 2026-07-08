@@ -19,9 +19,6 @@ const qs = (selector, parent = document) => parent.querySelector(selector);
 const qsa = (selector, parent = document) => Array.from(parent.querySelectorAll(selector));
 
 const els = {
-  logoImage: qs("#adminLogoImage"),
-  heroImage: qs("#adminHeroImage"),
-  chips: qs("#adminChips"),
   productGrid: qs("#adminProductGrid"),
   productTemplate: qs("#adminProductTemplate"),
   productInspector: qs("#productInspector"),
@@ -80,25 +77,11 @@ function renderContent() {
     node.textContent = getByPath(content, node.dataset.edit) || "";
   });
 
-  els.logoImage.src = imagePreviewFor(content.brand.logo);
-  els.heroImage.src = imagePreviewFor(content.hero.banner);
   els.emailInput.value = content.contact.email || "";
   els.formspreeInput.value = content.order.formspreeEndpoint || "";
   els.lineInput.value = content.contact.lineUrl || "";
   els.igInput.value = content.contact.instagramUrl || "";
   els.footerInput.value = content.footer || "";
-
-  els.chips.innerHTML = "";
-  content.hero.chips.forEach((chip, index) => {
-    const span = document.createElement("span");
-    span.contentEditable = "true";
-    span.textContent = chip;
-    span.addEventListener("input", () => {
-      content.hero.chips[index] = span.textContent.trim();
-      saveDraft();
-    });
-    els.chips.append(span);
-  });
 }
 
 function renderProducts() {
