@@ -1,0 +1,29 @@
+[
+  {
+    "id": "golden-mango-box",
+    "name": "Golden Mango Box",
+    "price": 650,
+    "unit": "5斤裝",
+    "image": "images/mango-01.png",
+    "description": "屏東陽光熟成，香氣濃郁、果肉細緻，適合冰鎮後享用。",
+    "available": true
+  },
+  {
+    "id": "creamy-avocado-box",
+    "name": "Creamy Avocado Box",
+    "price": 550,
+    "unit": "6顆裝",
+    "image": "images/avocado-01.png",
+    "description": "自然熟成的酪梨，適合酪梨牛奶、沙拉與早午餐。",
+    "available": true
+  },
+  {
+    "id": "summer-farm-set",
+    "name": "Summer Farm Set",
+    "price": 980,
+    "unit": "芒果＋酪梨綜合箱",
+    "image": "images/farm-set.png",
+    "description": "把夏天裝進一箱，芒果與酪梨一次帶回家。",
+    "available": true
+  }
+]

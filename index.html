@@ -3,153 +3,135 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>線上下單網站</title>
+    <title>Ken's Farm | 屏東小農產地直送</title>
+    <meta name="description" content="Ken's Farm 屏東小農產地直送，販售酪梨、芒果與季節水果箱。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles.css">
   </head>
   <body>
     <header class="site-header">
-      <div class="brand">
-        <div class="logo-frame">
-          <img id="siteLogo" alt="網站 Logo 預覽">
-          <span id="logoPlaceholder">LOGO</span>
-        </div>
-        <div>
-          <p class="eyebrow">線上下單系統</p>
-          <h1 id="shopName">我的商店</h1>
-        </div>
-      </div>
-      <label class="upload-button">
-        <input id="logoInput" type="file" accept="image/*">
-        上傳 Logo
-      </label>
+      <a class="brand" href="#top" aria-label="Ken's Farm home">
+        <img src="images/logo.png" alt="Ken's Farm logo">
+        <span>Ken's Farm</span>
+      </a>
+      <nav aria-label="主要導覽">
+        <a href="#fruit-drop">Fruit Drop</a>
+        <a href="#reserve">Reserve</a>
+      </nav>
     </header>
 
-    <main>
+    <main id="top">
       <section class="hero">
-        <div class="hero-copy">
-          <p class="eyebrow">快速接單・價格清楚・圖片可上傳</p>
-          <h2>讓客人選商品、填資料、上傳參考圖，一次完成下單。</h2>
-          <p>適合客製商品、印刷、設計服務、代購、預約訂購與需要圖片附件的訂單流程。</p>
-        </div>
-        <form class="shop-settings" id="shopSettings">
-          <label>
-            商店名稱
-            <input id="shopNameInput" type="text" value="我的商店" maxlength="24">
-          </label>
-          <label>
-            聯絡電話
-            <input id="phoneInput" type="tel" placeholder="例如：0912-345-678">
-          </label>
-          <label>
-            LINE ID
-            <input id="lineInput" type="text" placeholder="例如：myshop888">
-          </label>
-          <label>
-            接收訂單 Email
-            <input id="orderEmailInput" type="email" placeholder="例如：orders@example.com">
-          </label>
-        </form>
-      </section>
-
-      <section class="section-heading">
-        <div>
-          <p class="eyebrow">商品價格</p>
-          <h2>選擇要下單的項目</h2>
-        </div>
-        <button id="resetButton" type="button">清除訂單</button>
-      </section>
-
-      <section class="product-grid" id="productGrid" aria-label="商品列表"></section>
-
-      <section class="order-layout">
-        <form class="order-form" id="orderForm">
-          <div class="form-title">
-            <p class="eyebrow">訂單資料</p>
-            <h2>填寫下單資訊</h2>
+        <div class="hero-media" aria-hidden="true"></div>
+        <div class="hero-content">
+          <p class="kicker">Pingtung Farm to Home</p>
+          <h1>Sun-ripened fruit, straight from our farm.</h1>
+          <p class="hero-subtitle">屏東陽光熟成的酪梨與芒果，產地直送到你家。</p>
+          <div class="chips" aria-label="水果分類">
+            <span>Avocado</span>
+            <span>Mango</span>
+            <span>Seasonal Box</span>
+            <span>Farm to Home</span>
           </div>
+          <div class="hero-actions">
+            <a class="button primary" href="#reserve">Order the Drop</a>
+            <a class="button secondary" href="#fruit-drop">查看本週水果</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="intro-strip" aria-label="品牌特色">
+        <div>
+          <span>屏東小農產地直送</span>
+          <strong>Tree-ripened produce with a cleaner, softer kind of luxury.</strong>
+        </div>
+        <p>每週依熟度少量開放預訂，確認訂單後再安排採收、包裝與配送。</p>
+      </section>
+
+      <section class="section-heading" id="fruit-drop">
+        <p class="kicker">Fresh this week</p>
+        <h2>This Week’s Fruit Drop</h2>
+      </section>
+
+      <section class="product-grid" id="productGrid" aria-label="本週商品"></section>
+
+      <section class="reserve-layout" id="reserve">
+        <form class="checkout" id="orderForm" method="POST">
+          <div class="section-heading compact">
+            <p class="kicker">Checkout</p>
+            <h2>Reserve Your Box</h2>
+          </div>
+
+          <input type="hidden" name="order_items" id="orderItemsInput">
+          <input type="hidden" name="order_total" id="orderTotalInput">
+          <input type="hidden" name="order_summary" id="orderSummaryInput">
+          <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off">
 
           <div class="form-grid">
             <label>
-              姓名
-              <input name="customerName" type="text" placeholder="請輸入姓名" required>
+              Name
+              <input name="name" type="text" placeholder="Your name" required>
             </label>
             <label>
-              電話
-              <input name="customerPhone" type="tel" placeholder="請輸入電話" required>
+              Phone
+              <input name="phone" type="tel" placeholder="0912-345-678" required>
             </label>
             <label>
               Email
-              <input name="customerEmail" type="email" placeholder="name@example.com">
+              <input name="email" type="email" placeholder="name@example.com" required>
             </label>
             <label>
-              取貨方式
+              Delivery
               <select name="delivery">
                 <option>宅配</option>
-                <option>店取</option>
-                <option>面交</option>
+                <option>屏東面交</option>
+                <option>其他方式再聯絡</option>
               </select>
             </label>
           </div>
 
           <label>
-            收件地址或備註
-            <textarea name="note" rows="4" placeholder="尺寸、顏色、交期、地址或其他需求"></textarea>
+            Address / Notes
+            <textarea name="message" rows="5" placeholder="地址、希望熟度、可收貨時間，或其他需求"></textarea>
           </label>
 
-          <div class="upload-panel">
-            <div>
-              <p class="eyebrow">圖片附件</p>
-              <h3>上傳參考圖片</h3>
-              <p>可上傳商品參考圖、設計圖、付款截圖或客製需求圖片。</p>
-            </div>
-            <label class="upload-drop">
-              <input id="orderImages" type="file" accept="image/*" multiple>
-              選擇圖片
-            </label>
-          </div>
-          <div class="image-preview" id="imagePreview"></div>
-
-          <button class="submit-button" type="submit">送出訂單並開啟 Email</button>
+          <div class="form-message" id="formMessage" role="status" aria-live="polite"></div>
+          <button class="button submit" type="submit">Send My Order</button>
         </form>
 
-        <aside class="summary">
-          <p class="eyebrow">訂單摘要</p>
-          <h2>目前選購</h2>
+        <aside class="receipt-card" aria-label="訂單摘要">
+          <div>
+            <p class="kicker">Receipt</p>
+            <h2>Your Box</h2>
+          </div>
           <div id="cartItems" class="cart-items"></div>
           <div class="total-row">
-            <span>合計</span>
+            <span>Total</span>
             <strong id="cartTotal">NT$0</strong>
           </div>
-          <div class="contact-box">
-            <span>商店聯絡資訊</span>
-            <p id="contactInfo">尚未填寫</p>
-          </div>
-          <div class="contact-box">
-            <span>訂單寄送方式</span>
-            <p id="emailInfo">請先填寫接收訂單 Email</p>
-          </div>
+          <button class="text-button" id="resetButton" type="button">Clear selection</button>
         </aside>
-      </section>
-
-      <section class="orders">
-        <div class="section-heading compact">
-          <div>
-            <p class="eyebrow">已送出訂單</p>
-            <h2>瀏覽器本機紀錄</h2>
-          </div>
-          <button id="clearHistory" type="button">清除紀錄</button>
-        </div>
-        <div id="orderHistory" class="history-list"></div>
       </section>
     </main>
 
+    <footer class="site-footer">
+      <img src="images/logo.png" alt="" aria-hidden="true">
+      <p>Ken’s Farm · 屏東小農產地直送 · Avocado / Mango / Seasonal Box</p>
+    </footer>
+
     <template id="productTemplate">
       <article class="product-card">
-        <img class="product-image" alt="">
+        <div class="product-image-wrap">
+          <img class="product-image" alt="">
+        </div>
         <div class="product-body">
-          <span class="product-tag"></span>
-          <h3></h3>
-          <p></p>
+          <div>
+            <span class="product-unit"></span>
+            <h3></h3>
+            <p></p>
+          </div>
           <div class="product-footer">
             <strong></strong>
             <div class="quantity-control">
