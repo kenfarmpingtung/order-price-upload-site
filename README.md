@@ -50,7 +50,7 @@
 
 ## Formspree
 
-在 `admin.html` 的 Site Settings 填入你的 Formspree endpoint，下載 `content.json` 後覆蓋到 `data/content.json`。如果沒有設定 Formspree endpoint，前台會改用 Email 視窗寄出訂單內容。
+在 `admin.html` 的 Site Settings 填入你的 Formspree endpoint，下載 `content.json` 後覆蓋到 `data/content.json`。沒有設定 Formspree endpoint 時，前台不會送出訂單，也不會開啟 Email 視窗。
 
 ## 部署
 

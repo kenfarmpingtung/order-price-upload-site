@@ -38,6 +38,7 @@ const fallbackContent = {
     submitButton: "Send My Order",
     successMessage: "訂單已送出，我們會盡快與你確認熟度、出貨日與付款方式。",
     selectProductMessage: "請先選擇至少一箱水果。",
+    setupMessage: "請先在後台填入 Formspree endpoint，才能直接把訂單寄到 Email。",
     formspreeEndpoint: "https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID",
     fallbackEmail: "kenfarmpingtung@example.com"
   },
@@ -298,33 +299,10 @@ function resetCart() {
   renderCart();
 }
 
-function buildMailto(formData) {
-  const lines = getCartLines();
-  const subject = `New order from ${formData.get("name")}`;
-  const body = [
-    content.brand.name,
-    "",
-    `Name: ${formData.get("name")}`,
-    `Phone: ${formData.get("phone")}`,
-    `Email: ${formData.get("email")}`,
-    `Delivery: ${formData.get("delivery")}`,
-    "",
-    "Order",
-    buildOrderSummary(lines),
-    `Total: ${money.format(getTotal(lines))}`,
-    "",
-    "Notes",
-    formData.get("message") || "None"
-  ].join("\n");
-  const email = content.contact.email || content.order.fallbackEmail;
-  return `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-}
-
 async function submitToFormspree(formData) {
   const endpoint = content.order.formspreeEndpoint || "";
   if (!endpoint || endpoint.includes("REPLACE_WITH_YOUR_FORM_ID")) {
-    window.location.href = buildMailto(formData);
-    showMessage("已開啟 Email 視窗，請確認內容後寄出。");
+    showMessage(content.order.setupMessage, true);
     return;
   }
 

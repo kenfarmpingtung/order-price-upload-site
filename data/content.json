@@ -35,6 +35,7 @@
     "submitButton": "Send My Order",
     "successMessage": "訂單已送出，我們會盡快與你確認熟度、出貨日與付款方式。",
     "selectProductMessage": "請先選擇至少一箱水果。",
+    "setupMessage": "請先在後台填入 Formspree endpoint，才能直接把訂單寄到 Email。",
     "formspreeEndpoint": "https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID",
     "fallbackEmail": "kenfarmpingtung@example.com"
   },
